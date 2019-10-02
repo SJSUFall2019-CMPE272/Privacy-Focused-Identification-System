@@ -1,4 +1,4 @@
-### Privacy Management System ###
+### Privacy Focused Identification System ###
 
 ## Team Members
   - Ronak Shah
