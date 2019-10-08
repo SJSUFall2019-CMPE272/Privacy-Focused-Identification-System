@@ -1,14 +1,13 @@
-#Privacy Focused Identification System
-  A system designed to verify your identity with focus on privacy protection. The application will enable user to only reveal part of their identity that is required by the third-party service provider. 
-#Abstract
+# Privacy Focused Identification System
+  A system designed to verify your identity with focus on privacy protection. The application will enable user to only reveal part of their identity that is required by the third-party service provider.
 
-#Abstract
-
-
-#Architecture Diagram
+# Abstract
 
 
-#Technology Stack
+# Architecture Diagram
+
+
+# Technology Stack
 
 
 ### Team Members
