@@ -1,6 +1,6 @@
-### Privacy Focused Identification System ###
+## Privacy Focused Identification System
 
-## Team Members
+### Team Members
   - Ronak Shah
   - Samkit Sheth
   - Aishwarya Rastogi
