@@ -12,6 +12,7 @@
  - Docker containers to simulate nodes
  - Python/Node based framework as backend language
  - React/Angular based frontend
+ - PostgreSQL/MariaDB as relational database
 
 ### Team Members
   - Ronak Shah
