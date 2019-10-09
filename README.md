@@ -14,7 +14,7 @@
  - React/Angular based frontend
  - PostgreSQL/MariaDB as relational database
 
-### Team Members
+# Team Members
   - Ronak Shah
   - Samkit Sheth
   - Aishwarya Rastogi
