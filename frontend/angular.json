@@ -29,7 +29,10 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/assets/vendors/bootstrap/bootstrap.min.css",
+              "src/assets/vendors/themify-icons/themify-icons.css",
+              "src/assets/vendors/linericon/style.css"
             ],
             "scripts": []
           },
@@ -95,7 +98,10 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/assets/vendors/bootstrap/bootstrap.min.css",
+              "src/assets/vendors/themify-icons/themify-icons.css",
+              "src/assets/vendors/linericon/style.css"
             ],
             "scripts": []
           }

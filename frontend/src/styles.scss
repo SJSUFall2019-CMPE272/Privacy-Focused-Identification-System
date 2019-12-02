@@ -2,3 +2,19 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@import "src/assets/theme/variables";
+@import "src/assets/theme/mixins";
+@import "src/assets/theme/reset";
+@import "src/assets/theme/header";
+@import "src/assets/theme/responsive";
+@import "src/assets/theme/banner";
+@import "src/assets/theme/section-intro";
+@import "src/assets/theme/home";
+@import "src/assets/theme/clients";
+@import "src/assets/theme/blog";
+@import "src/assets/theme/contact";
+@import "src/assets/theme/btn";
+@import "src/assets/theme/footer";
+
+
