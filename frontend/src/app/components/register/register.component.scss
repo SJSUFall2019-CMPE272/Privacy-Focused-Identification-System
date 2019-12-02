@@ -1,4 +1,4 @@
-.login-container {
+.register-container {
 	height: calc(100vh - 64px);
 	display: flex;
 	justify-content: center;
@@ -8,15 +8,15 @@
 		justify-content: center;
 	}
 
-	.login-input {
+	.register-input {
 		width: 100%;
 	}
 
-	.register-link {
+	.login-link {
 		cursor: pointer;
 	}
 
-	.login-button {
+	.register-button {
 		float: right;
 	}
 }
