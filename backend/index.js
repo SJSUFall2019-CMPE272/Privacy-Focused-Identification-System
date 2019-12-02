@@ -15,7 +15,7 @@ var login = require('./api/routes/common/login')
 app.use(cookieParser())
 // saltround = 10;
 
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }))
+app.use(cors({ origin: 'http://localhost:4200', credentials: true }))
 
 app.use(
   session({
