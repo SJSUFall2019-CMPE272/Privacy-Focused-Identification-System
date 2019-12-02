@@ -40,7 +40,7 @@ passport.serializeUser(login.serializeUser);
 passport.deserializeUser(login.deserializeUser);
 
 app.post('/login', passport.authenticate('local'), function(req, res) {
-	res.send({status: "Success"});
+	res.send({name: req.user.name, email: req.user.email, type: req.user.type});
 });
 app.use(signup)
 
