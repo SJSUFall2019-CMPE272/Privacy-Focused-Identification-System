@@ -8,16 +8,18 @@ const config = require('../../../config/config')
    * cred_def_id info
 */
 router.post('/schema', (req, res) => {
- const {attributes, schema_name} = req.body;
+    console.log(req.body);
+ var {attributes, schema_name} = req.body;
  console.log(attributes)
  console.log(JSON.parse(attributes))
- console.log(['score2','passport_id2'])
+ attributes = JSON.parse(attributes);
+ attributes.push("user_id");
+ //console.log(['name','id','tin'])
  const request = {
-     "attributes":JSON.parse(attributes),
-     "schema_name":"fgfhfdf",
+     "attributes":attributes,
+     "schema_name":schema_name,
      "schema_version":"1.0"
- }
- 
+ } 
  var data = ""
  axios.post(config.issuerURL+'schemas',request,{
     headers: {
@@ -68,15 +70,18 @@ router.post('/schema', (req, res) => {
 
 router.post('/sendOffer',(req, res)=> {
     const credential_definition_id = req.body.credential_definition_id
-    const attributes = req.body.attributes
-    axios.get(config.issuerURL+'connections')
+    attributes = JSON.parse(req.body.attributes);
+    console.log(attributes)
+    //attributes.push("user_id");
+    axios.get(config.issuerURL+'connections')    
     .then(response=>{
        console.log(response.data.results[0])
        const connection_id = response.data.results[0].connection_id;
        const request = {
                         "credential_preview": {
                         "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/issue-credential/1.0/credential-preview",
-                        "attributes": JSON.parse(attributes)/* [
+                        "attributes": attributes
+                        /* [
                             {
                             "name": "score2",
                             
@@ -93,7 +98,7 @@ router.post('/sendOffer',(req, res)=> {
                         "connection_id": connection_id,
                         "auto_issue": true
                      }
-        
+        console.log(request)
         axios.post(config.issuerURL+'issue-credential/send-offer',request,{
             headers: {
                 'Content-Type': 'application/json',
@@ -125,7 +130,22 @@ router.post('/sendOffer',(req, res)=> {
           ]
         },
         "comment": "string",
-        "cred_def_id": "Btso2j5FydxDQGR2UVqjVw:3:CL:22:default",
+        "cred_def_id": "Btso2j5Fy[   "name": "tin",                            
+                            "value": "1sdadreger3424sddf0"
+                        },
+
+                        {
+                            "name": "id",
+                            "value": "1dsad9"
+                        }
+
+                        {
+                            "name": "user_id",
+                            "value": "1"
+                        }
+
+                        {
+                       dxDQGR2UVqjVw:3:CL:22:default",
         "connection_id": "44aa2e35-f36e-4f3e-a29f-a76d42ae6ae8",
         "auto_issue": true
       } */
