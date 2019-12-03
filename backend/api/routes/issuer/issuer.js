@@ -129,6 +129,72 @@ router.post('/sendOffer',(req, res)=> {
         "connection_id": "44aa2e35-f36e-4f3e-a29f-a76d42ae6ae8",
         "auto_issue": true
       } */
+});
+
+var schemaAttributes=[];
+var getAttributes = (schema_ids) => {
+    return new Promise((resolve, reject) => {
+        var promises = []
+        for(schema_id of schema_ids) {
+            
+            console.log(schema_id+" --")
+           k =  axios.get(config.issuerURL+'schemas/'+schema_id)
+           promises.push(k)
+           console.log(k) 
+           k.then(resp => {
+            console.log(resp.data.schema_json.attrNames)
+            var tempjson = {
+                'schema_id' :schema_id,
+                'attributes':resp.data.schema_json.attrNames
+            }
+            schemaAttributes.push(tempjson);
+        })
+        }
+        Promise.all(promises).then(values => {
+            resolve();
+        })
+    }) 
+}
+router.get('/schemaAttributes',(req,res) => {
+    var schema_ids=[];
+    //var schemaAttributes=[];
+    var promises = []
+    axios.get(config.issuerURL+'schemas/created')
+    .then(response => {
+        console.log(response.data)
+        schema_ids = response.data.schema_ids;
+        //console.log(schema_ids)
+        getAttributes(schema_ids).then(()=>{
+            res.send(schemaAttributes);
+        })
+       /*  for(schema_id of schema_ids) {
+            console.log(schema_id+" --")
+           k =  axios.get(config.issuerURL+'schemas/'+schema_id)
+           promises.push(k)
+           console.log(k) 
+           k.then(resp => {
+            console.log(resp.data.schema_json.attrNames)
+            var tempjson = {
+                'schema_id' :schema_id,
+                'attributes':resp.data.schema_json.attrNames
+            }
+            schemaAttributes.push(tempjson);
+        }) */
+           /* .then(resp => {
+                console.log(resp.data.schema_json.attrNames)
+                var tempjson = {
+                    'schema_id' :schema_id,
+                    'attributes':resp.data.schema_json.attrNames
+                }
+                schemaAttributes.push(tempjson);
+            }) */
+       // }
+        /* Promise.all(promises).then(
+            
+            res.send(schemaAttributes));
+        
+    }) */
 })
+});
 
 module.exports = router;
