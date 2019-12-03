@@ -1,0 +1,16 @@
+.new-schema-container {
+	padding: 24px;
+
+	.chip {
+		margin-bottom: 24px;
+
+		.close-icon {
+			margin-left: 8px;
+			cursor: pointer;
+		}
+	}
+
+	.attribute-button {
+		margin-left: 8px;
+	}
+}

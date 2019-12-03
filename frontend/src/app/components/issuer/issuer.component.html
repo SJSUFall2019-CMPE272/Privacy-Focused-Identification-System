@@ -1,0 +1,26 @@
+<mat-tab-group mat-stretch-tabs class="mat-elevation-z4">
+	<mat-tab label="Issue Credentials"> Content 1 </mat-tab>
+	<mat-tab label="Verify Credentials"> Content 2 </mat-tab>
+	<mat-tab label="Generate Schemas">
+		<div class="new-schema-container">
+			<h3>New Schema</h3>
+			<form #schemaForm="ngForm" (submit)="create_schema()">
+				<mat-form-field>
+					<input matInput type="text" name="schema" placeholder="Schema Name" [(ngModel)]="schema_name" required>
+				</mat-form-field>
+				<mat-chip-list>
+					<mat-chip color="primary" class="chip" *ngFor="let attribute of new_schema_attributes; let i = index;" selected>
+						<span>{{attribute}}</span>
+						<mat-icon class="close-icon" (click)="remove_attribute(i)">close</mat-icon>
+					</mat-chip>
+				</mat-chip-list>
+				<mat-form-field>
+					<input matInput type="text" name="attribute" placeholder="Attribute Name" #attribute>
+				</mat-form-field>
+				<button type="button" mat-raised-button color="primary" class="attribute-button" (click)="add_attribute(attribute.value)">Add Attribute</button>
+				<br><br>
+				<button type="submit" mat-raised-button color="primary" [disabled]="schemaForm.invalid || !new_schema_attributes.length">Create Schema</button>
+			</form>
+		</div>
+	</mat-tab>
+</mat-tab-group>
