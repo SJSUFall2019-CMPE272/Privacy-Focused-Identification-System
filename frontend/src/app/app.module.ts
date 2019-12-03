@@ -10,13 +10,15 @@ import { MaterialDesignModule } from './modules/material-design.module';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/register/register.component';
+import { DashboardUserComponent } from './components/dashboard-user/dashboard-user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
+    DashboardUserComponent
   ],
   imports: [
     BrowserModule,
