@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
 			console.log(res);
 			this.user.logged_in = true;
 			this.user.user_obj = res;
-			this.router.navigate(['/']);
+			this.router.navigate(['/issuer']);
 		})
 	}
 
