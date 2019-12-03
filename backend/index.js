@@ -8,9 +8,9 @@ var mongoose = require('./Mongo/mongoose')
 var cors = require('cors')
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var signup = require('./api/routes/common/signup')
-var login = require('./api/routes/common/login')
-
+var signup = require('./api/routes/common/signup');
+var login = require('./api/routes/common/login');
+var issuerRouter = require('./api/routes/issuer/issuer');
 
 app.use(cookieParser())
 // saltround = 10;
@@ -43,7 +43,7 @@ app.post('/login', passport.authenticate('local'), function(req, res) {
 	res.send({status: "Success"});
 });
 app.use(signup)
-
+app.use('/issuer',issuerRouter)
 app.listen(3001)
 console.log('Server Listening on port 3001')
 
