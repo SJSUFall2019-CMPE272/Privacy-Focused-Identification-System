@@ -16,7 +16,7 @@ var userRouter = require('./api/routes/user/user');
 app.use(cookieParser())
 // saltround = 10;
 
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }))
+app.use(cors({ origin: 'http://localhost:4200', credentials: true }))
 
 app.use(
   session({
@@ -41,7 +41,7 @@ passport.serializeUser(login.serializeUser);
 passport.deserializeUser(login.deserializeUser);
 
 app.post('/login', passport.authenticate('local'), function(req, res) {
-	res.send({status: "Success"});
+	res.send({name: req.user.name, email: req.user.email, type: req.user.type});
 });
 app.use(signup)
 app.use('/issuer',issuerRouter)

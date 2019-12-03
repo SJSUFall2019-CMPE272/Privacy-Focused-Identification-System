@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CommunicationService } from './../../services/communication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -7,15 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-	register_obj = {name: "", email: "", password: ""};
+	register_obj = {name: "", email: "", password: "", is_issuer: 0};
 
-	constructor() { }
+	constructor(private comm: CommunicationService, private router: Router) { }
 
 	ngOnInit() {
 	}
 
 	register() {
 		console.log(this.register_obj);
+		this.comm.sendPost("signup", this.register_obj).subscribe((res) => {
+			console.log(res);
+			this.router.navigate(['/login']);
+		});
 	}
 
 }

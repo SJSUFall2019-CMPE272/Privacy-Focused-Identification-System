@@ -7,18 +7,13 @@ router.post('/signup', (req, res) => {
   console.log("Inside signup Post Request");
   console.log("Req Body : ", req.body);
 
-  let type = 0;
-  if (req.body.type === 'user') {
-    type = 1
-  }
-
   bcrypt.genSalt(10, function (err, salt) {
     bcrypt.hash(req.body.password, salt, function (err, hash) {
       const user = new User({
-        name: req.body.username,
+        name: req.body.name,
         password: hash,
         email: req.body.email,
-        type: type
+        type: parseInt(req.body.is_issuer)
       });
       user
         .save()
