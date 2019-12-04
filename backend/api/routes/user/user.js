@@ -5,6 +5,7 @@ const config = require('../../../config/config')
 var SimpleCrypto = require("simple-crypto-js").default;
 var _secretKey = "sdhabdaskdbjabdjksnd";
 var simpleCrypto = new SimpleCrypto(_secretKey);
+var User = require("../../models/user");
 
 router.post('/getcred', (req, res) => {
     let ans = []
@@ -62,8 +63,8 @@ router.post('/verify', (req, res) => {
     console.log(req.body.data)
     var decrypted = simpleCrypto.decrypt(req.body.data, true);
 
-    let a=JSON.parse(decrypted.attrs)
-    let b={}
+    let a = JSON.parse(decrypted.attrs)
+    let b = {}
     //a.push("sasd")
 
     axios.get(config.userURL + 'credentials', decrypted.referent, {
@@ -74,11 +75,11 @@ router.post('/verify', (req, res) => {
         .then(response => {
 
             console.log(response.data.results[0].attrs)
-            a.forEach(att =>{
+            a.forEach(att => {
                 console.log(att)
-                if(response.data.results[0].attrs[att]){
-                    b[att]=response.data.results[0].attrs[att]
-                }else{
+                if (response.data.results[0].attrs[att]) {
+                    b[att] = response.data.results[0].attrs[att]
+                } else {
                     res.send({
                         success: true,
                         data: null,
@@ -92,15 +93,39 @@ router.post('/verify', (req, res) => {
                 data: b,
                 errMsg: ""
             });
-       })
-       .catch(err => {
-        res.send({
-            success: false,
-            data: null,
-            errMsg: "Could not fetch any credential info"
         })
-    });
-        
+        .catch(err => {
+            res.send({
+                success: false,
+                data: null,
+                errMsg: "Could not fetch any credential info"
+            })
+        });
+
 })
+
+router.get('/getalluser', (req, res) => {
+    console.log("Inside Get all User");
+    User.find({})
+        .exec()
+        .then(result => {
+            //console.log(result);
+            res.send({
+                success: true,
+                data: result,
+                errMsg: ""
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.send({
+                success: false,
+                data: null,
+                errMsg: "DB Error"
+            });
+        })
+});
+
+
 
 module.exports = router;
