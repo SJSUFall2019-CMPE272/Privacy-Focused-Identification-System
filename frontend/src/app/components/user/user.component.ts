@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommunicationService } from './../../services/communication.service';
 
 @Component({
   selector: 'app-user',
@@ -7,9 +8,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserComponent implements OnInit {
 
-  constructor() { }
+	credentials: any = [];
 
-  ngOnInit() {
-  }
+	constructor(private comm: CommunicationService) { }
+
+	ngOnInit() {
+		this.getUserCredentials();
+	}
+
+	getUserCredentials() {
+		this.comm.sendPost('user/getcred').subscribe((credentials: any) => {
+			this.credentials = credentials.data;
+			console.log(this.credentials);
+		})
+	}
+
+	generateProof(options, referent) {
+		let selected_attributes = [];
+		options.forEach(option => {
+			selected_attributes.push(option.value);
+		})
+		let req_obj = {
+			attrs: selected_attributes,
+			referent: referent
+		}
+		this.comm.sendPost('user/getencrypt', req_obj).subscribe((res) => {
+			console.log(res);
+		})
+	}
 
 }

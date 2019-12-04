@@ -9,13 +9,13 @@ var User = require("../../models/user");
 
 router.post('/getcred', (req, res) => {
     let ans = []
-    console.log(req.body.user_id)
+    console.log(req.user.id)
     axios.get(config.userURL + 'credentials')
         .then(response => {
 
             console.log(response.data.results)
             response.data.results.forEach(element => {
-                if (element.attrs.user_id === req.body.user_id) {
+                if (element.attrs.user_id === req.user.id) {
                     let first = element.schema_id.indexOf(":") + 3
                     let second = element.schema_id.lastIndexOf(":");
                     console.log(element.schema_id.slice(first, second));
