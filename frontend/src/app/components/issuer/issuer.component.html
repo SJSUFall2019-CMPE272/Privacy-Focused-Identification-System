@@ -24,7 +24,17 @@
 			</form>
 		</div>
 	</mat-tab>
-	<mat-tab label="Verify Credentials"> Content 2 </mat-tab>
+	<mat-tab label="Verify Credentials">
+		<div class=new-schema-container>
+			<form #verifyForm="ngForm" (submit)="verifyProof()">
+				<mat-form-field class="proof-input">
+    				<textarea name="proof-input" [(ngModel)]="proof_input" matInput matTextareaAutosize matAutosizeMinRows=3 placeholder="Enter Proof" required></textarea>
+  				</mat-form-field>
+  				<br><span class="error-text" *ngIf="invalid_proof">Invalid Proof</span><br>
+				<button type="submit" mat-raised-button color="primary" [disabled]="verifyForm.invalid">Validate</button>
+			</form>
+		</div>
+	</mat-tab>
 	<mat-tab label="Generate Schemas">
 		<div class="new-schema-container">
 			<h3>New Schema</h3>

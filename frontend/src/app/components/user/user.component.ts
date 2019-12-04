@@ -31,7 +31,7 @@ export class UserComponent implements OnInit {
 			selected_attributes.push(option.value);
 		})
 		let req_obj = {
-			attrs: selected_attributes,
+			attrs: JSON.stringify(selected_attributes),
 			referent: referent
 		}
 		this.comm.sendPost('user/getencrypt', req_obj).subscribe((res: any) => {

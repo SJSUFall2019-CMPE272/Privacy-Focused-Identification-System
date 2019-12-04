@@ -13,8 +13,19 @@
 	.attribute-button {
 		margin-left: 8px;
 	}
+
+	.proof-input {
+		width: 600px;
+	}
 }
 
 .block-form-el {
 	display: block;
+}
+
+.error-text {
+	color: red;
+	position: relative;
+	bottom: 24px;
+	font-size: 12px;
 }
