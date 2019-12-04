@@ -152,24 +152,38 @@ router.post('/sendOffer',(req, res)=> {
 });
 
 var getAttributes = (schema_ids) => {
-  var schemaAttributes=[];
+    var schemaAttributes=[];  
+    var promises = [];
     return new Promise((resolve, reject) => {
-        var promises = []
         for(schema_id of schema_ids) {
-            
-            console.log(schema_id+" --")
-           k =  axios.get(config.issuerURL+'schemas/'+schema_id)
-           promises.push(k)
-           console.log(k) 
-           k.then(resp => {
-            console.log(resp.data.schema_json)
-            var tempjson = {
-                'schema_id': resp.data.schema_json.id,
-                'attributes': resp.data.schema_json.attrNames,
-                'schema_name': resp.data.schema_json.name
-            }
-            schemaAttributes.push(tempjson);
-        })
+            // console.log(schema_id+" --")
+            promise = new Promise((resolve, reject) => {
+                axios.get(config.issuerURL+'schemas/'+schema_id).then((resp) => {
+                    const cred_req = {
+                       "schema_id":resp.data.schema_json.id,
+                       "tag":"default"
+                    }
+                    axios.post(config.issuerURL+'credential-definitions',cred_req,{
+                        headers: {
+                            'Content-Type': 'application/json',
+                    }}).then(response=>{
+                        // console.log(response.data)
+                        // console.log(resp.data.schema_json)
+                        var tempjson = {
+                            'schema_id': resp.data.schema_json.id,
+                            'attributes': resp.data.schema_json.attrNames,
+                            'schema_name': resp.data.schema_json.name,
+                            'credential_definition_id': response.data.credential_definition_id
+                        }
+                        //console.log(tempjson)
+                        schemaAttributes.push(tempjson);
+                        resolve();
+                        console.log(schemaAttributes)
+                        console.log("*******************************************")
+                    });
+               });
+            });
+            promises.push(promise)
         }
         Promise.all(promises).then(values => {
             resolve(schemaAttributes);
@@ -178,43 +192,17 @@ var getAttributes = (schema_ids) => {
 }
 router.get('/schemaAttributes',(req,res) => {
     var schema_ids=[];
-    //var schemaAttributes=[];
-    var promises = []
+    
+    //var promises = []
     axios.get(config.issuerURL+'schemas/created')
     .then(response => {
-        console.log(response.data)
+       
         schema_ids = response.data.schema_ids;
         //console.log(schema_ids)
         getAttributes(schema_ids).then((result)=>{
             res.send(result);
         })
-       /*  for(schema_id of schema_ids) {
-            console.log(schema_id+" --")
-           k =  axios.get(config.issuerURL+'schemas/'+schema_id)
-           promises.push(k)
-           console.log(k) 
-           k.then(resp => {
-            console.log(resp.data.schema_json.attrNames)
-            var tempjson = {
-                'schema_id' :schema_id,
-                'attributes':resp.data.schema_json.attrNames
-            }
-            schemaAttributes.push(tempjson);
-        }) */
-           /* .then(resp => {
-                console.log(resp.data.schema_json.attrNames)
-                var tempjson = {
-                    'schema_id' :schema_id,
-                    'attributes':resp.data.schema_json.attrNames
-                }
-                schemaAttributes.push(tempjson);
-            }) */
-       // }
-        /* Promise.all(promises).then(
-            
-            res.send(schemaAttributes));
-        
-    }) */
+      
 })
 });
 
