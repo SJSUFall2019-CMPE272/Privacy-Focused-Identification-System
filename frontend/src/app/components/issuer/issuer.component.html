@@ -8,10 +8,15 @@
 					<option *ngFor="let schema of schemas" [value]="schema.schema_id">{{schema.schema_name}}</option>
 				</select>
 			</mat-form-field>
-			<form #issueCredentialForm="ngForm" *ngIf="selected_schema" (submit)="issueCredential($event)">
+			<form #issueCredentialForm="ngForm" *ngIf="selected_schema" (submit)="issueCredential()">
 				<div *ngFor="let attribute of selected_schema.attributes">
-					<mat-form-field>
-						<input matInput type="text" [name]="attribute" [placeholder]="attribute" ngModel required>
+					<mat-form-field *ngIf="attribute.name != 'user_id'">
+						<input matInput type="text" [name]="attribute.name" [placeholder]="attribute.name" [(ngModel)]="attribute.value" required>
+					</mat-form-field>
+					<mat-form-field *ngIf="attribute.name == 'user_id'">
+						<select name="user_id" matNativeControl required [(ngModel)]="attribute.value">
+							<option *ngFor="let user of users" [value]="user._id">{{user.name}}</option>
+						</select>
 					</mat-form-field>
 				</div>
 				<button type="submit" mat-raised-button color="primary" [disabled]="issueCredentialForm.invalid">Issue Credential</button>

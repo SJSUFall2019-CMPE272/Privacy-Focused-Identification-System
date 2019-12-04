@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CommunicationService } from './../../services/communication.service';
-import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-issuer',
@@ -13,19 +12,38 @@ export class IssuerComponent implements OnInit {
 	schema_name = "";
 	schemas:any = [];
 	selected_schema:any = {};
+	users = [];
 
-	constructor(private comm: CommunicationService, private cdr: ChangeDetectorRef) { }
+	constructor(private comm: CommunicationService) { }
 
 	ngOnInit() {
 		this.getSchemas();
+		this.getUsers();
 	}
 
 	getSchemas() {
-		this.comm.get('issuer/schemaAttributes').subscribe((res) => {
+		this.comm.get('issuer/schemaAttributes').subscribe((res: any) => {
 			console.log(res);
+			res.forEach((schema) => {
+				let updated_attributes = [];
+				schema.attributes.forEach((attribute) => {
+					updated_attributes.push({
+						name: attribute,
+						value: ""
+					});
+				});
+				schema.attributes = updated_attributes;
+			});
 			this.schemas = res;
 			this.selected_schema = res[0];
 		})
+	}
+
+	getUsers() {
+		this.comm.get('user/getalluser').subscribe((users: any) => {
+			this.users = users.data;
+			console.log(this.users);
+		});
 	}
 
 	add_attribute(attribute) {
@@ -49,19 +67,20 @@ export class IssuerComponent implements OnInit {
 	}
 
 	updateSelectedSchema(ev) {
-		console.log(ev.target.value);
 		for (let i=0; i<this.schemas.length; i++) {
 			if (this.schemas[i].schema_id == ev.target.value) {
 				this.selected_schema = this.schemas[i];
-				this.cdr.detectChanges();
 				break;
 			}
 		}
 	}
 
-	issueCredential(ev) {
-		let form_data = new FormData(ev.target);
-		console.log(form_data);
+	issueCredential() {
+		let req_data = {
+			credential_definition_id: this.selected_schema.schema_id,
+			attributes: JSON.stringify(this.selected_schema.attributes)
+		}
+		console.log(req_data);
 	}
 
 }

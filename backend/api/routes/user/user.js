@@ -106,7 +106,7 @@ router.post('/verify', (req, res) => {
 
 router.get('/getalluser', (req, res) => {
     console.log("Inside Get all User");
-    User.find({})
+    User.find({type: 0})
         .exec()
         .then(result => {
             //console.log(result);
