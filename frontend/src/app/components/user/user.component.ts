@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommunicationService } from './../../services/communication.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-user',
@@ -10,7 +12,7 @@ export class UserComponent implements OnInit {
 
 	credentials: any = [];
 
-	constructor(private comm: CommunicationService) { }
+	constructor(private comm: CommunicationService, private dialog: MatDialog) { }
 
 	ngOnInit() {
 		this.getUserCredentials();
@@ -32,8 +34,14 @@ export class UserComponent implements OnInit {
 			attrs: selected_attributes,
 			referent: referent
 		}
-		this.comm.sendPost('user/getencrypt', req_obj).subscribe((res) => {
-			console.log(res);
+		this.comm.sendPost('user/getencrypt', req_obj).subscribe((res: any) => {
+			const dialogRef = this.dialog.open(DialogComponent, {
+				width: "600px",
+				data: {
+					title: "Proof", 
+					content: `Please present the following proof:<br><br><span class="break-word">${res.data}</span>`
+				}
+			});
 		})
 	}
 

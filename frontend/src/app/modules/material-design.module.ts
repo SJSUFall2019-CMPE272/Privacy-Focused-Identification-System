@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatListModule } from '@angular/material/list';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [],
@@ -25,7 +26,8 @@ import { MatListModule } from '@angular/material/list';
     MatIconModule,
     MatSnackBarModule,
     MatSlideToggleModule,
-    MatListModule
+    MatListModule,
+    MatDialogModule
   ],
   exports: [
   	MatInputModule,
@@ -37,7 +39,8 @@ import { MatListModule } from '@angular/material/list';
     MatIconModule,
     MatSnackBarModule,
     MatSlideToggleModule,
-    MatListModule
+    MatListModule,
+    MatDialogModule
   ]
 })
 export class MaterialDesignModule { }

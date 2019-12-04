@@ -17,4 +17,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 @import "src/assets/theme/btn";
 @import "src/assets/theme/footer";
 
-
+.break-word {
+	word-wrap: break-word;
+}

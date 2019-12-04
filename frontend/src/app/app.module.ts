@@ -12,6 +12,7 @@ import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/register/register.component';
 import { IssuerComponent } from './components/issuer/issuer.component';
 import { UserComponent } from './components/user/user.component';
+import { DialogComponent } from './components/dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { UserComponent } from './components/user/user.component';
     HomeComponent,
     RegisterComponent,
     IssuerComponent,
-    UserComponent
+    UserComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -31,6 +33,7 @@ import { UserComponent } from './components/user/user.component';
     HttpClientModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DialogComponent]
 })
 export class AppModule { }
