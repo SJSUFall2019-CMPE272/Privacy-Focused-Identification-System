@@ -176,7 +176,8 @@ var getAttributes = (schema_ids) => {
                             'credential_definition_id': response.data.credential_definition_id
                         }
                         //console.log(tempjson)
-                        schemaAttributes.push(tempjson);
+                        if (tempjson.schema_name != "degree schema")
+                          schemaAttributes.push(tempjson);
                         resolve();
                         console.log(schemaAttributes)
                         console.log("*******************************************")
