@@ -1,4 +1,7 @@
 <mat-toolbar color="primary" class="header">
-  <span routerLink="/" class="name">PrIde</span>
+  <span routerLink="/" class="name" *ngIf="!user.logged_in">PrIde</span>
+  <span routerLink="/login" class="name" *ngIf="user.logged_in">PrIde</span>
+  <span class="filler"></span>
+  <mat-icon class="logout" aria-hidden="false" *ngIf="user.logged_in" (click)="logout()">input</mat-icon>
 </mat-toolbar>
 <router-outlet></router-outlet>

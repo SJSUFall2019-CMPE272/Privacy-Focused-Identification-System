@@ -49,6 +49,10 @@ app.post('/loggedIn', function(req, res) {
 app.post('/login', passport.authenticate('local'), function(req, res) {
 	res.send({name: req.user.name, email: req.user.email, type: req.user.type});
 });
+app.get('/logout', function(req, res) {
+  req.logout();
+  res.send({message: "Success"});
+});
 app.use(signup)
 app.use('/issuer',issuerRouter)
 app.use('/user',userRouter)
