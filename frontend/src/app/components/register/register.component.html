@@ -17,6 +17,8 @@
 			    <input matInput name="password" type="password" placeholder="Password" [(ngModel)]="register_obj.password" required>
 			  </mat-form-field>
 
+			  <mat-slide-toggle name="issuer_flag" [(ngModel)]="register_obj.is_issuer">Is an Issuer?</mat-slide-toggle><br><br>
+
 			  <button class="register-button" mat-raised-button color="primary" [disabled]="registrationForm.invalid">Register</button>
 			  <a routerLink="/login" class="login-link">Login</a>
 			</form>

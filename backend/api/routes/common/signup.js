@@ -13,7 +13,7 @@ router.post('/signup', (req, res) => {
         name: req.body.name,
         password: hash,
         email: req.body.email,
-        type: parseInt(req.body.is_issuer)
+        type: (req.body.is_issuer == 'true') ? 1 : 0
       });
       user
         .save()

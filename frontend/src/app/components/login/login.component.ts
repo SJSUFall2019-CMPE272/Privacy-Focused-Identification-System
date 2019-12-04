@@ -15,15 +15,31 @@ export class LoginComponent implements OnInit {
 	constructor(private comm: CommunicationService, private router: Router, private user: UserService) { }
 
 	ngOnInit() {
+		this.checkIfLoggedIn();
+	}
+
+	checkIfLoggedIn() {
+		this.comm.sendPost('loggedIn').subscribe((res: any) => {
+			console.log(res);
+			this.user.logged_in = true;
+			this.user.user_obj = res;
+			if (res.type)
+				this.router.navigate(['/issuer']);
+			else
+				this.router.navigate(['/user'])
+		})
 	}
 
 	login() {
 		console.log(this.login_obj);
-		this.comm.sendPost('login', this.login_obj).subscribe((res) => {
+		this.comm.sendPost('login', this.login_obj).subscribe((res: any) => {
 			console.log(res);
 			this.user.logged_in = true;
 			this.user.user_obj = res;
-			this.router.navigate(['/issuer']);
+			if (res.type)
+				this.router.navigate(['/issuer']);
+			else
+				this.router.navigate(['/user'])
 		})
 	}
 

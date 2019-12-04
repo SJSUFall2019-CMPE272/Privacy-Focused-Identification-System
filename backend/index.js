@@ -40,6 +40,12 @@ passport.use(new LocalStrategy({
 passport.serializeUser(login.serializeUser);
 passport.deserializeUser(login.deserializeUser);
 
+app.post('/loggedIn', function(req, res) {
+  if (req.user)
+    res.send({name: req.user.name, email: req.user.email, type: req.user.type});
+  else
+    res.status(401).send({message: "Unauthorized"});
+});
 app.post('/login', passport.authenticate('local'), function(req, res) {
 	res.send({name: req.user.name, email: req.user.email, type: req.user.type});
 });

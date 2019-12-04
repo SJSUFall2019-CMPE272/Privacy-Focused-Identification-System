@@ -11,6 +11,7 @@ import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/register/register.component';
 import { IssuerComponent } from './components/issuer/issuer.component';
+import { UserComponent } from './components/user/user.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { IssuerComponent } from './components/issuer/issuer.component';
     LoginComponent,
     HomeComponent,
     RegisterComponent,
-    IssuerComponent
+    IssuerComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
