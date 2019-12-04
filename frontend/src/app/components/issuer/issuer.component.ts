@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommunicationService } from './../../services/communication.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-issuer',
@@ -14,7 +15,7 @@ export class IssuerComponent implements OnInit {
 	selected_schema:any = {};
 	users = [];
 
-	constructor(private comm: CommunicationService) { }
+	constructor(private comm: CommunicationService, private snack_bar: MatSnackBar) { }
 
 	ngOnInit() {
 		this.getSchemas();
@@ -62,7 +63,7 @@ export class IssuerComponent implements OnInit {
 		}
 		console.log(schema_obj);
 		this.comm.sendPost("issuer/schema", schema_obj).subscribe((res) => {
-			console.log(res);
+			this.snack_bar.open("Schema Created Successfully", "Close", {duration: 5000});
 		});
 	}
 
@@ -77,10 +78,12 @@ export class IssuerComponent implements OnInit {
 
 	issueCredential() {
 		let req_data = {
-			credential_definition_id: this.selected_schema.schema_id,
+			credential_definition_id: this.selected_schema.credential_definition_id,
 			attributes: JSON.stringify(this.selected_schema.attributes)
 		}
-		console.log(req_data);
+		this.comm.sendPost('issuer/sendOffer', req_data).subscribe((res) => {
+			this.snack_bar.open("Credential Issued Successfully", "Close", {duration: 5000});
+		});
 	}
 
 }
