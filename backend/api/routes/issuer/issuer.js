@@ -151,8 +151,8 @@ router.post('/sendOffer',(req, res)=> {
       } */
 });
 
-var schemaAttributes=[];
 var getAttributes = (schema_ids) => {
+  var schemaAttributes=[];
     return new Promise((resolve, reject) => {
         var promises = []
         for(schema_id of schema_ids) {
@@ -162,16 +162,17 @@ var getAttributes = (schema_ids) => {
            promises.push(k)
            console.log(k) 
            k.then(resp => {
-            console.log(resp.data.schema_json.attrNames)
+            console.log(resp.data.schema_json)
             var tempjson = {
-                'schema_id' :schema_id,
-                'attributes':resp.data.schema_json.attrNames
+                'schema_id': resp.data.schema_json.id,
+                'attributes': resp.data.schema_json.attrNames,
+                'schema_name': resp.data.schema_json.name
             }
             schemaAttributes.push(tempjson);
         })
         }
         Promise.all(promises).then(values => {
-            resolve();
+            resolve(schemaAttributes);
         })
     }) 
 }
@@ -184,8 +185,8 @@ router.get('/schemaAttributes',(req,res) => {
         console.log(response.data)
         schema_ids = response.data.schema_ids;
         //console.log(schema_ids)
-        getAttributes(schema_ids).then(()=>{
-            res.send(schemaAttributes);
+        getAttributes(schema_ids).then((result)=>{
+            res.send(result);
         })
        /*  for(schema_id of schema_ids) {
             console.log(schema_id+" --")
