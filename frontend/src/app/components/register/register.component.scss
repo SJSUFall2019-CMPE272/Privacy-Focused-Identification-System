@@ -1,0 +1,22 @@
+.register-container {
+	height: calc(100vh - 64px);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	.header {
+		justify-content: center;
+	}
+
+	.register-input {
+		width: 100%;
+	}
+
+	.login-link {
+		cursor: pointer;
+	}
+
+	.register-button {
+		float: right;
+	}
+}

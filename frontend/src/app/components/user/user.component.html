@@ -1,0 +1,17 @@
+<div class=user-container>
+	<mat-card class="credential-card" *ngFor="let credential of credentials">
+		<mat-card-header>
+			<mat-card-title>{{credential.schema_name}}</mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
+		<mat-selection-list role="list" #options>
+			<mat-list-option role="listitem" *ngFor="let attribute of credential.attrs | keyvalue" [value]="attribute.key">
+				<span><b>{{attribute.key}}:</b> {{attribute.value}}</span>
+			</mat-list-option>
+		</mat-selection-list>
+		</mat-card-content>
+		<mat-card-actions>
+			<button mat-raised-button color="primary" (click)="generateProof(options.selectedOptions.selected, credential.referent)">Generate Proof</button>
+		</mat-card-actions>
+	</mat-card>
+</div>
