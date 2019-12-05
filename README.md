@@ -8,11 +8,11 @@
   ![Architecture Diagram](archDiag.png)
 
 # Technology Stack
- - Hyperledger Indy
+ - Hyperledger Indy and Hyperledger Aries
  - Docker containers to simulate nodes
- - Python/Node based framework as backend language
- - React/Angular based frontend
- - PostgreSQL/MariaDB as relational database
+ - Python and Node for backend servers
+ - Angular based frontend application
+ - MongoDB as NoSQL database
 
 # Team Members
   - Ronak Shah
